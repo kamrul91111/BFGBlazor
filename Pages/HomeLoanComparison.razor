@@ -1,0 +1,99 @@
+﻿@page "/homeloancomparison"
+
+
+<div class="jumbotron" style="background: rgb(17,17,17);">
+    <div class="row">
+        <div class="col">
+            <h1 style="color:white">Benevolence Financial Group</h1>
+            <p style="color:white">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
+            <RadzenButton Text="Talk with us" Icon="arrow_right_alt"></RadzenButton>
+        </div>
+        <div class-"col">
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card shadow mb-3">
+    <div class="card-header py-3">
+        <p style="text-align:center;font-size:35px;padding:10px;">Compare Home Loans</p>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group"><label for="borrowing limit">I want to borrow *</label><input class="form-control" type="number" placeholder="" name="borrowing limit" /></div>
+                </div>
+                <div class="col">
+                    <div class="form-group"><label for="property value">Property value *</label><input class="form-control" type="number" placeholder="" name="property value" /></div>
+                </div>
+                <div class="col">
+                    <div class="form-group"><label for="Property purpose">Property purpose *</label>
+                        <select id="inputPurpose" class="form-control">
+                             <option value="" disabled selected hidden>Please select</option>
+                             <option>I will live there</option>
+                             <option>It's an investment</option>
+                         </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group"><label for="Repayment Type">Repayment Type</label>
+                        <select id="inputPurpose" class="form-control">
+                             <option>Principal and Interest</option>
+                             <option>Interest only</option>
+                         </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Loan type">Loan type</label>
+                        <select id="inputPurpose" class="form-control">
+                            <option value="" disabled selected hidden>Please select</option>
+                            <option>Variable</option>
+                            <option>Fixed</option>
+                            <option>Both</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <br />
+                    <button type="submit" style="background: rgb(255,92,0); color:white;" class="form-control">COMPARE<span style="padding: 10px">&#8594;</span></button>
+                </div>
+            </div>
+            *Required
+            <hr />
+        </form>
+    </div>
+</div>
+
+
+<section class="features-icons bg-light text-center">
+    <div class="container" style="padding:40px;">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                    <div class="d-flex features-icons-icon"><RadzenIcon Icon="money" Style="margin:auto;font-size:60px;"/></div>
+                    <h3>Home Loan</h3>
+                    <p class="lead mb-0">Stuff about home Loan</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                    <div class="d-flex features-icons-icon"><i class="icon-layers m-auto text-primary"></i></div>
+                    <h3>Bootstrap 4 Ready</h3>
+                    <p class="lead mb-0">Featuring the latest build of the new Bootstrap 4 framework!</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                    <div class="d-flex features-icons-icon"><i class="icon-check m-auto text-primary"></i></div>
+                    <h3>Easy to Use</h3>
+                    <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

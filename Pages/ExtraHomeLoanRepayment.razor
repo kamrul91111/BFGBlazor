@@ -1,0 +1,110 @@
+﻿@page "/extrahomeloanrepayment"
+
+<h1>Extra Home Loan Repayment</h1>
+<table class="table">
+    <tr>
+        <th>Initial Principal</th>
+        <th><input @bind="Principal" /></th>
+    </tr>
+    <tr>
+        <th>Years</th>
+        <th><input @bind="NumberOfYears" /></th>
+    </tr>
+    <tr>
+        <th>Repayment Frequency</th>
+        <th><RadzenDropDown Placeholder="Monthly" Data="@RepaymentFrequencyDict.Keys" TValue="string" @bind-Value="@RepaymentFreqChoice" ValueProperty="RepaymentFreqChoice" Change="@(args => RepaymentFrequency(args))" /></th>
+    </tr>
+    <tr>
+        <th>Annual Interest Rate (%)</th>
+        <th><input @bind="InterestRate" /></th>
+    </tr>
+    <tr>
+        <th>Extra Repayment</th>
+        <th><input @bind="ExtraRepayment" /></th>
+    </tr>
+    <tr>
+        <th>Start Date</th>
+        <th><input @bind="StartYear" /></th>
+    </tr>
+    <tr>
+        <th>MinimumRepayment:</th>
+        <th>@MinimumRepayment</th>
+    </tr>
+    <tr>
+        <th>MaximumRepayment:</th>
+        <th>@MaximumRepayment</th>
+    </tr>
+    <tr>
+        <th>timeSaved:</th>
+        <th>@TimeSaved</th>
+    </tr>
+    <tr>
+        <th>InterestSaved:</th>
+        <th>@InterestSaved</th>
+    </tr>
+</table>
+
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+@code {
+    private double Principal { get; set; } = 300000;
+    private double InterestRate { get; set; } = 2.69;
+    private int NumberOfYears { get; set; } = 30;
+    private int PaymentPerYears { get; set; } = 12;
+    private int StartYear { get; set; } = 5;
+    private int ExtraRepayment { get; set; } = 100;
+
+    private double minimumRepayment { get; set; } = 0;
+    private string MinimumRepayment { get; set; }
+    private double maximumRepayment { get; set; } = 0;
+    private string MaximumRepayment { get; set; }
+    private double timeSaved { get; set; } = 0;
+    private string TimeSaved { get; set; }
+    private double interestSaved { get; set; } = 0;
+    private string InterestSaved { get; set; }
+
+    private double AmountBeforeExtraRepayment { get; set; } = 0;
+    private double AmountAfterExtraRepayment { get; set; } = 0;
+    private double AfterExtra { get; set; } = 0;
+
+
+    private string RepaymentFreqChoice = "";
+
+    private Dictionary<string, int> RepaymentFrequencyDict = new Dictionary<string, int>()
+{{"Monthly", 12 },{"Annually", 1 },{"Weekly", 52 },{"Fortnightly", 26 }};
+
+    private void RepaymentFrequency(object value)
+    {
+        foreach (KeyValuePair<string, int> element in RepaymentFrequencyDict)
+        {
+            if (element.Key == RepaymentFreqChoice)
+            {
+                PaymentPerYears = element.Value;
+            }
+        }
+    }
+
+    private void Calculate()
+    {
+        var minimumRepayment = (Principal * ((InterestRate * 0.01) / PaymentPerYears) * Math.Pow((1 + (InterestRate * 0.01) /
+                PaymentPerYears), NumberOfYears * PaymentPerYears)) / (Math.Pow((1 + (InterestRate * 0.01) /
+                PaymentPerYears), NumberOfYears * PaymentPerYears) - 1);
+
+        MinimumRepayment = minimumRepayment.ToString("C");
+
+        maximumRepayment = minimumRepayment + ExtraRepayment;
+        MaximumRepayment = maximumRepayment.ToString("C");
+
+        var AmountBeforeExtraRepayment = Principal * Math.Pow((1 + (InterestRate * 0.01) / PaymentPerYears), StartYear * PaymentPerYears) - minimumRepayment * ((Math.Pow((1 + (InterestRate * 0.01) / PaymentPerYears), StartYear * PaymentPerYears) - 1) / ((InterestRate * 0.01) / PaymentPerYears));
+
+        var timeSaved = Math.Log10(maximumRepayment / (maximumRepayment - AmountBeforeExtraRepayment * ((InterestRate * 0.01) / PaymentPerYears))) / Math.Log10(1+ (InterestRate * 0.01) / PaymentPerYears);
+
+
+        var interestSaved = ((minimumRepayment * NumberOfYears * PaymentPerYears) - Principal) - (((Principal * Math.Pow((1 + (InterestRate * 0.01) / PaymentPerYears), StartYear * PaymentPerYears)) - Principal) + ((maximumRepayment * timeSaved) - AmountBeforeExtraRepayment));
+        timeSaved = NumberOfYears - ((timeSaved / PaymentPerYears) + StartYear);
+        TimeSaved = (Math.Round(timeSaved, 1, MidpointRounding.ToPositiveInfinity)).ToString("C");
+
+        InterestSaved = interestSaved.ToString("C");
+
+    }
+}

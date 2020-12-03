@@ -1,0 +1,63 @@
+﻿@page "/fetchdata"
+
+@using System.Net.Http
+@using BFGBlazor.Data
+@inject HttpClient client
+@inject IJSRuntime js
+@inject DataContextService DataService
+
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="User Data">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add">
+                </RadzenButton>
+                <RadzenGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" data="@homeLoans" TItem="HomeLoans" PageSize="20">
+                    <Columns>
+                        <RadzenGridColumn TItem="HomeLoans" Property="Id" Title="Id">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="HomeLoans" Property="Name" Title="Name">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="HomeLoans" Property="Residential.DiscountInitialRate" Title="Discounted Initial Rate">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="HomeLoans" Property="Residential.LvrMin"  Title="Minimum LVR">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="HomeLoans" Property="Residential.LoanMax" Title="Maximum Loan">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="HomeLoans" Property="Residential.TermMax" Title="Maximum Term">
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="HomeLoans" Property="isActive" Title="Is Active">
+                        </RadzenGridColumn>
+                    </Columns>
+                </RadzenGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+
+@code {
+    private WeatherForecast[] forecasts;
+    private IEnumerable<HomeLoans> homeLoans;
+    private List<HomeLoans> homeLoansList;
+    protected RadzenGrid<HomeLoans> grid0;
+
+    private Microsoft.EntityFrameworkCore.DbSet<HomeLoans> homeLoansDB;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await DataService.GetForecastAsync(DateTime.Now);
+        string apiPath = "/api/HomeLoansController/";
+
+        //homeLoansDB = await client.GetAsync(apiPath);
+
+        homeLoans = await DataService.GetHomeLoans();
+    }
+
+}

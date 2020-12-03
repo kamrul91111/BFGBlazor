@@ -1,0 +1,86 @@
+﻿@page "/homeloanrepayment"
+
+<h1>Home Loan Repayment</h1>
+
+<table class="table">
+    <tr>
+        <th>Initial principal ($)</th>
+        <th><RadzenNumeric @bind-Value="Principal" /></th>
+    </tr>
+    <tr>
+        <th>Years</th>
+        <th><RadzenNumeric @bind-Value="NumberOfYears" /></th>
+    </tr>
+    <tr>
+        <th>Repayment frequency</th>
+        <th><RadzenDropDown Placeholder="Monthly" Data="@RepaymentFrequencyDict.Keys" TValue="string" @bind-Value="@RepaymentFreqChoice" ValueProperty="RepaymentFreqChoice" Change="@(args => RepaymentFrequency(args))" /></th>
+    </tr>
+    <tr>
+        <th>Annual interest rate (%)</th>
+        <th><RadzenNumeric @bind-Value="InterestRate" /></th>
+    </tr>
+    <tr>
+        <th>Repayment type</th>
+        <th>
+            <RadzenSelectBar @bind-Value="PrincipleAndInterest" TValue="bool" >
+                <Items>
+                    <RadzenSelectBarItem Text="Principle And Interest" Value=true />
+                    <RadzenSelectBarItem Text="Interest Only" Value=false />
+                </Items>
+            </RadzenSelectBar>
+        </th>
+    </tr>
+    <tr>
+        <th>Total:</th>
+        <th>@Total</th>
+    </tr>
+</table>
+
+
+
+
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+@code {
+
+    private double Principal { get; set; } = 300000;
+    private double InterestRate { get; set; } = 2.69;
+    private int NumberOfYears { get; set; } = 30;
+    private int PaymentPerYears { get; set; } = 12;
+    private double total { get; set; } = 0;
+    private string Total { get; set; }
+    private bool PrincipleAndInterest = true;
+    private string RepaymentFreqChoice = "";
+
+    private Dictionary<string, int> RepaymentFrequencyDict = new Dictionary<string, int>()
+    {{"Monthly", 12 },{"Annually", 1 },{"Weekly", 52 },{"Fortnightly", 26 }};
+
+
+    private void RepaymentFrequency(object value)
+    {
+        foreach (KeyValuePair<string, int> element in RepaymentFrequencyDict)
+        {
+            if (element.Key == RepaymentFreqChoice)
+            {
+                PaymentPerYears = element.Value;
+            }
+        }
+    }
+
+    private void Calculate()
+    {
+        if (PrincipleAndInterest == true)
+        {
+            var total = (Principal * ((InterestRate * 0.01) / PaymentPerYears) * Math.Pow((1 + (InterestRate * 0.01) /
+                PaymentPerYears), NumberOfYears * PaymentPerYears)) / (Math.Pow((1 + (InterestRate * 0.01) /
+                PaymentPerYears), NumberOfYears * PaymentPerYears) - 1);
+            Total = total.ToString("C");
+        }
+        else
+        {
+            var total = Principal * ((InterestRate * 0.01) / PaymentPerYears);
+            Total = total.ToString("C");
+        }
+
+    }
+}

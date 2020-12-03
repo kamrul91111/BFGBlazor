@@ -1,0 +1,433 @@
+﻿@page "/lmicalculator"
+
+<h1>Lenders Mortgage Insurance Calculator</h1>
+
+<table class="table">
+    <tr>
+        <th>The price of my property is ($)</th>
+        <th><RadzenNumeric @bind-Value="PropertyValue" /></th>
+    </tr>
+    <tr>
+        <th>My deposit is ($)</th>
+        <th><RadzenNumeric @bind-Value="Deposit" /></th>
+    </tr>
+    <tr>
+        <th>My property is located in</th>
+        <th><RadzenDropDown Data="@PropertyLocationOptions" TValue="string" @bind-Value="@PropertyLocationUserChoice" /></th>
+    </tr>
+    <tr>
+        <th>Your estimated LMI payment is:</th>
+        <th>@LMIResult</th>
+    </tr>
+    <tr>
+        <th>Your LVR is:</th>
+        <th>@LVRResult%</th>
+    </tr>
+</table>
+
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+<p></p>
+<p>Disclaimer: This fee varies slightly from lender to lender. The results should be used as indication only.</p>
+
+    @code {
+        private double PropertyValue { get; set; }
+        private double Deposit { get; set; }
+        private double LoanAmount { get; set; }
+        private double LMI { get; set; }
+        private double LVR { get; set; }
+        private List<string> PropertyLocationOptions = new List<string>
+        {
+            "ACT",
+            "NSW",
+            "NT",
+            "QLD",
+            "SA",
+            "TAS",
+            "VIC",
+            "WA"
+        };
+        private string PropertyLocationUserChoice = "";
+
+        private string LMIResult { get; set; }
+        private string LVRResult { get; set; }
+
+        private void CalculateLMI(double LMIRate, double LoanAmount)
+        {
+            LMI = LoanAmount * LMIRate;
+            LMIResult = LMI.ToString("C");
+            LVR *= 100;
+            LVRResult = LVR.ToString();
+        }
+
+        private void Calculate()
+        {
+            LoanAmount = PropertyValue - Deposit;
+            LVR = LoanAmount / PropertyValue;
+
+            if (LVR > 0.80 && LVR <= 0.81)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.00475, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.00568, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.00904, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.00904, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.00913, LoanAmount);
+                }
+            }
+
+            else if (LVR > 0.81 && LVR <= 0.82)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.00485, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.00568, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.00904, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.00904, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.00913, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.82 && LVR <= 0.83)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.00596, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.00699, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.00932, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.0109, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.01109, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.83 && LVR <= 0.84)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.00662, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.00829, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.00960, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.0109, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.01146, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.84 && LVR <= 0.85)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.00727, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.00969, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.01165, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.01333, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.01407, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.85 && LVR <= 0.86)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.00876, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.01081, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.01258, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.01407, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.01463, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.86 && LVR <= 0.87)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.00932, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.01146, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.01407, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.01631, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.01733, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.87 && LVR <= 0.88)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.01062, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.01305, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.01463, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.01631, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.01752, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.88 && LVR <= 0.89)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.01295, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.01621, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.01948, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.02218, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.02395, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.89 && LVR <= 0.90)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.01463, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.01873, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.0218, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.02367, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.02516, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.90 && LVR <= 0.91)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.02013, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.02618, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.03513, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.03783, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.0382, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.91 && LVR <= 0.92)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.02013, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.02674, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.03569, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.03867, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.03932, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.92 && LVR <= 0.93)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.0233, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.03028, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.03802, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.04081, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.04156, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.93 && LVR <= 0.94)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.02376, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.03028, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.03802, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.04286, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.04324, LoanAmount);
+                }
+            }
+
+            if (LVR > 0.94 && LVR <= 0.95)
+            {
+                if (LoanAmount > 0 && LoanAmount <= 300000)
+                {
+                    CalculateLMI(0.02609, LoanAmount);
+                }
+                else if (LoanAmount > 300000 && LoanAmount <= 500000)
+                {
+                    CalculateLMI(0.03345, LoanAmount);
+                }
+                else if (LoanAmount > 500000 && LoanAmount <= 600000)
+                {
+                    CalculateLMI(0.03998, LoanAmount);
+                }
+                else if (LoanAmount > 600000 && LoanAmount <= 750000)
+                {
+                    CalculateLMI(0.04613, LoanAmount);
+                }
+                else if (LoanAmount > 750000 && LoanAmount <= 1000000)
+                {
+                    CalculateLMI(0.04603, LoanAmount);
+                }
+            }
+        }
+
+        // References
+        // https://www.homeloanexperts.com.au/lenders-mortgage-insurance/lmi-premium-rates/.
+        // https://www.homeloanexperts.com.au/lenders-mortgage-insurance/lmi-calculator/#lmiCalcForm.
+        // https://www.lendi.com.au/calculators/home-loans/lmi-calculator/.
+        // https://www.ratecity.com.au/home-loans/lmi-calculator.
+    }

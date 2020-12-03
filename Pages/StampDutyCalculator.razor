@@ -1,0 +1,124 @@
+﻿@page "/stampdutycalculator"
+
+@using BFGBlazor.Data
+
+<h1>Stamp Duty Calculator</h1>
+
+<table class="table">
+    <tr>
+        <th>Type of property</th>
+        <th><RadzenDropDown Data="@TypeOfPropertyOptions" TValue="string" @bind-Value="@TypeOfPropertyUserChoice" /></th>
+    </tr>
+    <tr>
+        <th>Are you a first home buyer</th>
+        <th><RadzenDropDown Data="@FirstHomeBuyerOptions" TValue="string" @bind-Value="@FirstHomeBuyerUserChoice" /></th>
+    </tr>
+    <tr>
+        <th>The property is located in</th>
+        <th><RadzenDropDown Data="@PropertyLocationOptions" TValue="string" @bind-Value="@PropertyLocationUserChoice" /></th>
+    </tr>
+    <tr>
+        <th>Property use</th>
+        <th><RadzenDropDown Data="@PropertyUseOptions" TValue="string" @bind-Value="@PropertyUseUserChoice" /></th>
+    </tr>
+    <tr>
+        <th>Price of the property is ($)</th>
+        <th><RadzenNumeric @bind-Value="PriceOfProperty" /></th>
+    </tr>
+    <tr>
+        <th>Your deposit ($)</th>
+        <th><RadzenNumeric @bind-Value="DepositAmount" /></th>
+    </tr>
+    <tr>
+        <th>Stamp Duty:</th>
+        <th>@StampDutyResult</th>
+    </tr>
+    <tr>
+        <th>Mortage Registration:</th>
+        <th>@MortgageRegistrationResult</th>
+    </tr>
+    <tr>
+        <th>Transfer fee:</th>
+        <th>@TransferFeeResult</th>
+    </tr>
+    <tr>
+        <th>Your total costs:</th>
+        <th>@TotalCostsResult</th>
+    </tr>
+</table>
+
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+@code {
+
+    private List<string> TypeOfPropertyOptions = new List<string>
+{
+        "Newly built dwelling",
+        "Existing property",
+        "Vacant land"
+    };
+    private string TypeOfPropertyUserChoice = "";
+
+    private List<string> FirstHomeBuyerOptions = new List<string>
+{
+        "No",
+        "Yes"
+    };
+    private string FirstHomeBuyerUserChoice = "";
+
+    private List<string> PropertyLocationOptions = new List<string>
+{
+        "ACT",
+        "NSW",
+        "NT",
+        "QLD",
+        "SA",
+        "TAS",
+        "VIC",
+        "WA"
+    };
+    private string PropertyLocationUserChoice = "";
+
+    private List<string> PropertyUseOptions = new List<string>
+{
+        "Live-in",
+        "Investment"
+    };
+    private string PropertyUseUserChoice = "";
+
+    private double PriceOfProperty { get; set; }
+    private double DepositAmount { get; set; }
+    private double StampDuty { get; set; }
+    private double MortgageRegistration { get; set; } = 146.4;
+    private double TransferFee { get; set; } = 146.4;
+    private double TotalCosts { get; set; }
+
+
+    private string StampDutyResult { get; set; }
+    private string MortgageRegistrationResult { get; set; }
+    private string TransferFeeResult { get; set; }
+    private string TotalCostsResult { get; set; }
+
+    private CalculateStampDuty calculateStampDuty = new CalculateStampDuty();
+
+    private void Calculate()
+    {
+        StampDuty = calculateStampDuty.Calculate(FirstHomeBuyerUserChoice, PropertyLocationUserChoice, TypeOfPropertyUserChoice, PriceOfProperty, StampDuty);
+        // Converting into string with currency sign.
+        StampDutyResult = StampDuty.ToString("C");
+        MortgageRegistrationResult = MortgageRegistration.ToString("C");
+        TransferFeeResult = TransferFee.ToString("C");
+
+        TotalCosts = StampDuty + MortgageRegistration + TransferFee;
+        TotalCostsResult = TotalCosts.ToString("C");
+    }
+
+    // References
+    // Stamp duty rates.
+    // https://www.homeloanexperts.com.au/mortgage-calculators/nsw-stamp-duty-calculator/#:~:text=To%20calculate%20the%20First%20Home%20Buyers%20Assistance%20concession%20on%20an,by%2020.89%25%20and%20subtract%20%24135%2C785.&text=a)%20First%20home%20owners%20can,be%20no%20more%20than%20%24600%2C000.
+    // https://www.finder.com.au/new-south-wales-stamp-duty-guide.
+    // https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty.
+    // First home buyers.
+    // https://www.revenue.nsw.gov.au/grants-schemes/first-home-buyer/assistance-scheme.
+
+}

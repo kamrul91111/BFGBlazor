@@ -1,0 +1,137 @@
+﻿@page "/switchandsavecalculator"
+
+<h1>Switch And Save Calculator</h1>
+
+<table class="table">
+    <tr>
+        <th>Loan Amount ($)</th>
+        <th><RadzenNumeric @bind-Value="Pv" /></th>
+    </tr>
+    <tr>
+        <th>Refinance choices</th>
+        <th><RadzenDropDown Data="@RefinanceOptions" TValue="string" @bind-Value="@RefinanceUserChoice" /></th>
+    </tr>
+    <tr>
+        <th>Current nominal interest rate (%)</th>
+        <th><RadzenNumeric @bind-Value="CurrentInterestRate" /></th>
+    </tr>
+    <tr>
+        <th>Current monthly repayment ($)</th>
+        <th><RadzenNumeric @bind-Value="CurrentPmt" /></th>
+    </tr>
+    <tr>
+        <th>New nominal interest rate (%)</th>
+        <th><RadzenNumeric @bind-Value="NewInterestRate" /></th>
+    </tr>
+    @{
+        if (RefinanceUserChoice.Equals("I want to pay off my loan faster"))
+        {
+            <tr>
+                <th>Time to pay off loan:</th>
+                <th>@n months | @LoanPeriodInYears years</th>
+            </tr>
+        }
+        else if (RefinanceUserChoice.Equals("I want to switch to a cheaper loan"))
+        {
+            <tr>
+                <th>Savings over duration of loan:</th>
+                <th>@Result</th>
+            </tr>
+            <tr>
+                <th>Interest paid on current loan:</th>
+                <th>@CurrentInterestPaidResult</th>
+            </tr>
+            <tr>
+                <th>Interest paid on new loan:</th>
+                <th>@NewInterestPaidResult</th>
+            </tr>
+        }
+        else
+        { }
+    }
+</table>
+
+<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+@code {
+
+    private double CurrentInterestRate { get; set; }
+    private double NewInterestRate { get; set; }
+    // Effective annual rate.
+    private double Ear { get; set; }
+    // Effective monthly rate.
+    private double Emr { get; set; }
+    // Current monthly payment.
+    private double CurrentPmt { get; set; }
+    // New monthly payment
+    private double NewPmt { get; set; }
+    // Home loan amount.
+    private double Pv { get; set; }
+    // Loan period in months.
+    private double n { get; set; }
+    // Loan period in years.
+    private double LoanPeriodInYears { get; set; }
+    // Savings over duration of loan if switch to new loan.
+    private double Savings { get; set; }
+    // Interest paid on loan currently.
+    private double CurrentInterestPaid { get; set; }
+    // Interest paid on new loan.
+    private double NewInterestPaid { get; set; }
+
+    // Result value will be showing to the user (output).
+    private string Result { get; set; }
+    private string CurrentInterestPaidResult { get; set; }
+    private string NewInterestPaidResult { get; set; }
+
+    private string RefinanceUserChoice = "";
+    private List<string> RefinanceOptions = new List<string>
+    {
+        "I want to pay off my loan faster",
+        "I want to switch to a cheaper loan"
+    };
+
+    private void Calculate()
+    {
+
+        CurrentInterestRate /= 100;
+        Ear = Math.Pow((1 + (CurrentInterestRate / 365)), 365) - 1;
+        Emr = Math.Pow(Ear + 1, (double)1 / 12) - 1;
+        n = Math.Log(CurrentPmt / (CurrentPmt - Pv * Emr)) / Math.Log(1 + Emr);
+        // Round the period to whole number.
+        n = Math.Round(n);
+        // Convert period from month to year.
+        LoanPeriodInYears = n / 12;
+
+        NewInterestRate /= 100;
+        // Reset EAR for new loan calculation.
+        Ear = 0;
+        Ear = Math.Pow((1 + (NewInterestRate / 365)), 365) - 1;
+        // Reset EMR for new loan calculation.
+        Emr = 0;
+        Emr = Math.Pow(Ear + 1, (double)1 / 12) - 1;
+        // Calculate new monthly payment.
+        NewPmt = (Pv) * ((Emr * Math.Pow(1 + Emr, n) / (Math.Pow(1 + Emr, n) - 1)));
+
+        // Round both monthly payment to two decimal places.
+        NewPmt = Math.Round(NewPmt, 2);
+        CurrentPmt = Math.Round(CurrentPmt, 2);
+
+        // Calcualte how much user could save switching to new loan.
+        Savings = CurrentPmt * n - NewPmt * n;
+
+        // This condition is to warn user about negative output.
+        if (NewPmt < CurrentPmt)
+        {
+            Result = Savings.ToString("C");
+        } else
+        {
+            Result = "Savings amount is less than zero" + " (" + Savings.ToString("C") + ")";
+        }
+
+        CurrentInterestPaid = CurrentPmt * n - Pv;
+        CurrentInterestPaidResult = CurrentInterestPaid.ToString("C");
+
+        NewInterestPaid = NewPmt * n - Pv;
+        NewInterestPaidResult = NewInterestPaid.ToString("C");
+    }
+}

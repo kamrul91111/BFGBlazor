@@ -1,0 +1,41 @@
+@page "/equitycal"
+
+<h1>Equity Calculator</h1>
+<br />
+<table class="table">
+    <tr>
+        <th>My Property Worth </th>
+        <th><input @bind="property" /></th>
+    </tr>
+    <tr>
+        <th>Outstanding Loan Amount</th>
+        <th><input @bind="loan" /></th>
+    </tr>
+<br />
+<RadzenButton Text="Calculate" Click="@Calculate"></RadzenButton>
+<br />
+    <tr>
+        <th>Equity </th>
+        <th><input @bind="equity" /></th>
+    </tr>
+    <tr>
+        <th>New Home Loan</th>
+        <th><input @bind="newLoan" /></th>
+    </tr>
+    </table>
+
+
+@code {
+
+    public double property;
+    public double loan;
+    public double equity;
+    public double newLoan;
+
+
+    private void Calculate()
+    {
+        equity = (property * 0.8) - loan;
+        newLoan = equity + loan;
+    }
+}

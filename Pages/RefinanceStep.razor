@@ -1,0 +1,92 @@
+﻿@page "/refinancestep"
+<h3>Refinance Step</h3>
+
+
+<RadzenSteps>
+    <Steps>
+        <RadzenStepsItem Text="Loan Purpose">
+            <h3>What is your loan purpose?</h3>
+            <RadzenDropDown TValue="string" Data="LoanPurposeOptions" @bind-value="@LoanPurpose"></RadzenDropDown>
+        </RadzenStepsItem>
+        <RadzenStepsItem Text="Loan Amount" Disabled="@(LoanPurpose == "")">
+            <h3>What is your loan amount?</h3>
+            <RadzenNumeric @bind-Value="LoanAmount" />
+        </RadzenStepsItem>
+        <RadzenStepsItem Text="Current Interest Rate" Disabled="@(LoanAmount == 0)">
+            <h3>What is your current interest rate?  (OPTIONAL)</h3>
+            <RadzenNumeric @bind-Value="InterestRate" />
+        </RadzenStepsItem>
+        <RadzenStepsItem Text="Property Value" Disabled="@(LoanAmount == 0)">
+            <h3>What is the property value?</h3>
+            <RadzenNumeric @bind-Value="PropertyValue" />
+        </RadzenStepsItem>
+        <RadzenStepsItem Text="Advanced Filter" Disabled="@(PropertyValue == 0)">
+            <h3>Advanced Filter (OPTIONAL)</h3>
+            <table class="table">
+                <tr>
+                    <th>Loan Type</th>
+                    <th><RadzenDropDown Placeholder="Both" TValue="string" Data="LoanTypeOptions" @bind-value="@LoanType"></RadzenDropDown></th>
+                </tr>
+                <tr>
+                    <th>Repayment Type</th>
+                    <th><RadzenDropDown Placeholder="Show All" TValue="string" Data="RepaymentTypeOptions" @bind-value="@RepaymentType"></RadzenDropDown></th>
+                </tr>
+                <tr>
+                    <th>Ethical Lender Only</th>
+                    <th>
+                        <RadzenCheckBox @bind-Value=@EthicalLender TValue="bool" />
+                    </th>
+                </tr>
+                <tr>
+                    <th>Special Type</th>
+                    <th><RadzenDropDown Placeholder="Show All" TValue="string" Data="SpecialTypeOptions" @bind-value="@SpecialType"></RadzenDropDown></th>
+                </tr>
+                <tr>
+                    <th>Offset Account</th>
+                    <th><RadzenDropDown Placeholder="Show All" TValue="string" Data="OffsetAccountOptions" @bind-value="@OffsetAccount"></RadzenDropDown></th>
+                </tr>
+            </table>
+        </RadzenStepsItem>
+    </Steps>
+</RadzenSteps>
+
+@code {
+
+    List<string> LoanPurposeOptions = new List<string>();
+    List<string> LoanTypeOptions = new List<string>();
+    List<string> RepaymentTypeOptions = new List<string>();
+    List<string> SpecialTypeOptions = new List<string>();
+    List<string> OffsetAccountOptions = new List<string>();
+
+    private string LoanPurpose = "";
+    private string LoanType = "Both";
+    private string RepaymentType = "Show All";
+    private string SpecialType = "Show All";
+    private string OffsetAccount = "Show All";
+    private bool EthicalLender = false;
+
+    private int LoanAmount = 0;
+    private double InterestRate = 0;
+    private int PropertyValue = 0;
+
+    protected override void OnInitialized()
+    {
+        LoanPurposeOptions.Add("Home");
+        LoanPurposeOptions.Add("Investment");
+        LoanPurposeOptions.Add("Both");
+        LoanTypeOptions.Add("Both");
+        LoanTypeOptions.Add("Variable");
+        LoanTypeOptions.Add("Fixed");
+        RepaymentTypeOptions.Add("Show All");
+        RepaymentTypeOptions.Add("Principal and Interest");
+        RepaymentTypeOptions.Add("Interest Only");
+        SpecialTypeOptions.Add("Show All");
+        SpecialTypeOptions.Add("Cashback");
+        SpecialTypeOptions.Add("Rewards");
+        SpecialTypeOptions.Add("Special");
+        OffsetAccountOptions.Add("Show All");
+        OffsetAccountOptions.Add("Yes");
+        OffsetAccountOptions.Add("No");
+    }
+
+}
