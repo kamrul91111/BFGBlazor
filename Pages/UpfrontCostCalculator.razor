@@ -2,6 +2,7 @@
 
 @using BFGBlazor.Data
 @using Radzen
+
 <div class="jumbotron" id="banner1" style="background: rgb(44,44,44);">
     <div class="row">
         <div class="col">
@@ -11,6 +12,74 @@
         <div class="col"><img id="im1" src="https://cdn.pixabay.com/photo/2015/04/10/17/03/pots-716579_960_720.jpg" style="align-content:center;" /></div>
     </div>
 </div>
+
+<div class="accordion" id="accordion">
+    <div class="card z-depth-0">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Collapsible Group Item #1
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+             data-parent="#accordionExample">
+            <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable.
+            </div>
+        </div>
+    </div>
+    <div class="card z-depth-0 bordered">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Collapsible Group Item #2
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable.
+            </div>
+        </div>
+    </div>
+    <div class="card z-depth-0 bordered">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Collapsible Group Item #3
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable.
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <div class="row">
@@ -46,15 +115,26 @@
     </div>
 </div>
 
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);">
+    <div class="row">
+        <div class="col-8">
+            <h2 style="color: rgb(255,255,255);">Your estimated upfront costs <br>@DepositOutput</h2>
+        </div>
+        <div class="col">
+            <h3 style="color: rgb(255,255,255);">After covering your upfront costs, You would have @DepositOutput savings remaining for a deposit.</h3>
+        </div>
+    </div>
+</div>
+
 @*gotta figure this out*@
-<table class="table">
+<!--<table class="table">
     <tr>
         <th>Savings left for a deposit:</th>
         <th>@DepositOutput</th>
     </tr>
-</table>
+</table>-->
 
-<div class="row">
+<div class="row" style="margin-bottom:40px;">
     <div class="col-xl-12">
         <RadzenAccordion Expand=@(args => Change(args, "Accordion with single expand", "expanded"))>
             <Items>
@@ -82,11 +162,61 @@
                         </table>
                     </div>
                 </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Employees" Icon="account_box">
-                    Details for Employees
+                <RadzenAccordionItem Text="Conveyancing fees" class="mainh">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 823px;">Conveyancing</td>
+                                    <td><RadzenNumeric @bind-Value="Conveyancing" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Customers" Icon="accessibility">
-                    Details for Customers
+                <RadzenAccordionItem Text="Bank Fees" class="mainh">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 823px;">Bank Settlement Fees</td>
+                                    <td>@BankSettlementFeeOutput</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 823px;">Loan establishment fee</td>
+                                    <td>@LoanEstablishmentFeeOutput</td>
+                                </tr>
+                                <tr>
+                                    <td>LMI</td>
+                                    <td>@LMIOutput</td>
+                                </tr>
+                                <tr>
+                                    <td>BFG Fees</td>
+                                    <td>$$$</td>
+                                </tr>
+                                <tr>
+                                    <td>Application fee</td>
+                                    <td><RadzenDropDown Data="@ApplicationFee" @bind-Value="@ApplicationFeeUserChoice" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </RadzenAccordionItem>
+                <RadzenAccordionItem Text="Other" class="mainh">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Moving fee:</td>
+                                    <td><RadzenNumeric @bind-Value="MovingFee" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Pest inspection:</td>
+                                    <td><RadzenNumeric @bind-Value="PestInspection" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </RadzenAccordionItem>
             </Items>
         </RadzenAccordion>
@@ -99,85 +229,28 @@
 
 
 
-<table class="table">
-    <tr>
-        <th>Conveyancing fees</th>
-        <th></th>
-    </tr>
-    <tr>
-        <th>Conveyancing:</th>
-        <th><RadzenNumeric @bind-Value="Conveyancing" /></th>
-    </tr>
-    <tr>
-        <th>Bank fees</th>
-        <th></th>
-    </tr>
-    <tr>
-        <th>Bank settlement fee:</th>
-        <th>@BankSettlementFeeOutput</th>
-    </tr>
-    <tr>
-        <th>Loan establishment fee:</th>
-        <th>@LoanEstablishmentFeeOutput</th>
-    </tr>
-    <tr>
-        <th>LMI:</th>
-        <th>@LMIOutput</th>
-    </tr>
-    <tr>
-        <th>
-            BFG fees
-        </th>
-        <th></th>
-    </tr>
-    <tr>
-        <th>
-            Loan settlement fee:
-        </th>
-        <th>@LoanSettlementFeeOutput</th>
-    </tr>
-    <tr>
-        <th>
-            Application fee:
-        </th>
-        <th><RadzenDropDown Data="@ApplicationFee" @bind-Value="@ApplicationFeeUserChoice" /></th>
-    </tr>
-    <tr>
-        <th>Other upfront costs to consider</th>
-        <th></th>
-    </tr>
-    <tr>
-        <th>Moving fee:</th>
-        <th><RadzenNumeric @bind-Value="MovingFee" /></th>
-    </tr>
-    <tr>
-        <th>Pest inspection:</th>
-        <th><RadzenNumeric @bind-Value="PestInspection" /></th>
-    </tr>
-</table>
-
 @code {
-            void Change(object value, string name, string action)
-            {
-                //console.Log($"{name} item with index {value} {action}");
-            }
-            private List<string> TypeOfPropertyOptions = new List<string>
-        {
+    void Change(object value, string name, string action)
+    {
+        //console.Log($"{name} item with index {value} {action}");
+    }
+    private List<string> TypeOfPropertyOptions = new List<string>
+    {
             "Newly built dwelling",
             "Existing property",
             "Vacant land"
     };
-        private string TypeOfPropertyUserChoice { get; set; }
+    private string TypeOfPropertyUserChoice { get; set; }
 
-        private List<string> FirstHomeBuyerOptions = new List<string>
-        {
+    private List<string> FirstHomeBuyerOptions = new List<string>
+    {
             "No",
             "Yes"
     };
-        private string FirstHomeBuyerUserChoice { get; set; }
+    private string FirstHomeBuyerUserChoice { get; set; }
 
-        private List<string> PropertyLocationOptions = new List<string>
-        {
+    private List<string> PropertyLocationOptions = new List<string>
+    {
             "ACT",
             "NSW",
             "NT",
@@ -187,102 +260,102 @@
             "VIC",
             "WA"
     };
-        private string PropertyLocationUserChoice { get; set; }
+    private string PropertyLocationUserChoice { get; set; }
 
-        private List<string> PropertyUseOptions = new List<string>
-        {
+    private List<string> PropertyUseOptions = new List<string>
+    {
             "Live-in",
             "Investment"
     };
-        private string PropertyUseUserChoice { get; set; }
+    private string PropertyUseUserChoice { get; set; }
 
-        private double PriceOfProperty { get; set; }
-        private double Savings { get; set; }
-        private double Deposit { get; set; }
-        private double TotalUpfrontCosts { get; set; }
+    private double PriceOfProperty { get; set; }
+    private double Savings { get; set; }
+    private double Deposit { get; set; }
+    private double TotalUpfrontCosts { get; set; }
 
-        // Governemnt fees.
-        private double StampDutyOnProperty { get; set; }
-        private double MortgageRegistrationFee { get; set; } = 146;
-        private double MortgageDischargeFee { get; set; } = 146;
-        private double TransferFee { get; set; } = 147;
+    // Governemnt fees.
+    private double StampDutyOnProperty { get; set; }
+    private double MortgageRegistrationFee { get; set; } = 146;
+    private double MortgageDischargeFee { get; set; } = 146;
+    private double TransferFee { get; set; } = 147;
 
-        // Conveyancing fees.
-        private double Conveyancing { get; set; } = 1500;
+    // Conveyancing fees.
+    private double Conveyancing { get; set; } = 1500;
 
-        // Bank fees.
-        private double LMI { get; set; }
-        private double BankSettlementFee { get; set; } = 200; // For CBA.
-        private double LoanEstablishmentFee { get; set; } = 600; // For CBA.
+    // Bank fees.
+    private double LMI { get; set; }
+    private double BankSettlementFee { get; set; } = 200; // For CBA.
+    private double LoanEstablishmentFee { get; set; } = 600; // For CBA.
 
-        // BFG fees.
-        private double LoanSettlementFee { get; set; } = 285; // This is an indicative only. Discuss with Sam to get the accurate fee.
-        private List<double> ApplicationFee = new List<double>
+    // BFG fees.
+    private double LoanSettlementFee { get; set; } = 285; // This is an indicative only. Discuss with Sam to get the accurate fee.
+    private List<double> ApplicationFee = new List<double>
 {
             0,
             525 // This is an indicative only. Discuss with Sam to get the accurate fee.
     };
-        private double ApplicationFeeUserChoice { get; set; }
+    private double ApplicationFeeUserChoice { get; set; }
 
-        // Other costs.
-        private double MovingFee { get; set; }
-        private double PestInspection { get; set; }
+    // Other costs.
+    private double MovingFee { get; set; }
+    private double PestInspection { get; set; }
 
-        // Output string.
-        private string DepositOutput { get; set; }
+    // Output string.
+    private string DepositOutput { get; set; }
 
+    // Government fees.
+    private string StampDutyOnPropertyOutput { get; set; }
+    private string MortgageRegistrationFeeOutput { get; set; }
+    private string MortgageDischargeFeeOutput { get; set; }
+    private string TransferFeeOutput { get; set; }
+
+    // Conveyancing fees.
+    private string ConveyancingOutput { get; set; }
+
+    // Bank fees.
+    private string LMIOutput { get; set; }
+    private string BankSettlementFeeOutput { get; set; }
+    private string LoanEstablishmentFeeOutput { get; set; }
+
+    // BFG fees.
+    private string LoanSettlementFeeOutput { get; set; }
+
+    // Total upfront costs.
+    private string TotalUpfrontCostsOutput { get; set; }
+
+    private CalculateStampDuty stampDutyCalculator = new CalculateStampDuty();
+
+    private void Calculate()
+    {
         // Government fees.
-        private string StampDutyOnPropertyOutput { get; set; }
-        private string MortgageRegistrationFeeOutput { get; set; }
-        private string MortgageDischargeFeeOutput { get; set; }
-        private string TransferFeeOutput { get; set; }
-
-        // Conveyancing fees.
-        private string ConveyancingOutput { get; set; }
+        StampDutyOnProperty = stampDutyCalculator.Calculate(FirstHomeBuyerUserChoice, PropertyLocationUserChoice, TypeOfPropertyUserChoice, PriceOfProperty, StampDutyOnProperty);
+        StampDutyOnPropertyOutput = StampDutyOnProperty.ToString("C");
+        MortgageRegistrationFeeOutput = MortgageDischargeFee.ToString("C");
+        MortgageDischargeFeeOutput = MortgageDischargeFee.ToString("C");
+        TransferFeeOutput = TransferFee.ToString("C");
 
         // Bank fees.
-        private string LMIOutput { get; set; }
-        private string BankSettlementFeeOutput { get; set; }
-        private string LoanEstablishmentFeeOutput { get; set; }
+        LMIOutput = LMI.ToString("C");
+        BankSettlementFeeOutput = BankSettlementFee.ToString("C");
+        LoanEstablishmentFeeOutput = LoanEstablishmentFee.ToString("C");
 
         // BFG fees.
-        private string LoanSettlementFeeOutput { get; set; }
+        LoanSettlementFeeOutput = LoanSettlementFee.ToString("C");
 
-        // Total upfront costs.
-        private string TotalUpfrontCostsOutput { get; set; }
+        // Total fees.
+        TotalUpfrontCosts = (StampDutyOnProperty + MortgageRegistrationFee + MortgageDischargeFee + TransferFee) +
+                        (Conveyancing) + (LMI + BankSettlementFee + LoanEstablishmentFee) +
+                        (LoanSettlementFee + ApplicationFeeUserChoice) + (MovingFee + PestInspection);
+        TotalUpfrontCostsOutput = TotalUpfrontCosts.ToString("C");
 
-        private CalculateStampDuty stampDutyCalculator = new CalculateStampDuty();
-
-        private void Calculate()
-        {
-            // Government fees.
-            StampDutyOnProperty = stampDutyCalculator.Calculate(FirstHomeBuyerUserChoice, PropertyLocationUserChoice, TypeOfPropertyUserChoice, PriceOfProperty, StampDutyOnProperty);
-            StampDutyOnPropertyOutput = StampDutyOnProperty.ToString("C");
-            MortgageRegistrationFeeOutput = MortgageDischargeFee.ToString("C");
-            MortgageDischargeFeeOutput = MortgageDischargeFee.ToString("C");
-            TransferFeeOutput = TransferFee.ToString("C");
-
-            // Bank fees.
-            LMIOutput = LMI.ToString("C");
-            BankSettlementFeeOutput = BankSettlementFee.ToString("C");
-            LoanEstablishmentFeeOutput = LoanEstablishmentFee.ToString("C");
-
-            // BFG fees.
-            LoanSettlementFeeOutput = LoanSettlementFee.ToString("C");
-
-            // Total fees.
-            TotalUpfrontCosts = (StampDutyOnProperty + MortgageRegistrationFee + MortgageDischargeFee + TransferFee) +
-                            (Conveyancing) + (LMI + BankSettlementFee + LoanEstablishmentFee) +
-                            (LoanSettlementFee + ApplicationFeeUserChoice) + (MovingFee + PestInspection);
-            TotalUpfrontCostsOutput = TotalUpfrontCosts.ToString("C");
-
-            // Amount left for deposit.
-            Deposit = Savings - TotalUpfrontCosts;
-            DepositOutput = Deposit.ToString("C");
-        }
+        // Amount left for deposit.
+        Deposit = Savings - TotalUpfrontCosts;
+        DepositOutput = Deposit.ToString("C");
     }
+}
 
-    // References
+    @*// References
     // https://www.commbank.com.au/digital/home-buying/calculator/totalcost.
     // https://www.homeloanexperts.com.au/mortgage-calculators/property-purchase-costs-calculator/.
-    // https://www.rams.com.au/calculators-and-resources/calculator-upfront-and-ongoing-costs/. }
+    // https://www.rams.com.au/calculators-and-resources/calculator-upfront-and-ongoing-costs/. }*@
