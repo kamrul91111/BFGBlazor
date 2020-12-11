@@ -1,59 +1,130 @@
 ﻿@page "/switchandsavecalculator"
 
-<h1>Switch And Save Calculator</h1>
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: rgb(255,255,255);">Switch and Save Calculator</h1>
+            <p style="color: rgb(255,255,255);">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+        </div>
+        <div class="col"><img id="im1" src="https://cdn.pixabay.com/photo/2016/06/24/10/47/architecture-1477041_960_720.jpg" style="align-content:center;" /></div>
+    </div>
+</div>
 
-<table class="table">
-    <tr>
-        <th>Loan Amount ($)</th>
-        <th><RadzenNumeric @bind-Value="Pv" /></th>
-    </tr>
-    <tr>
-        <th>Refinance choices</th>
-        <th><RadzenDropDown Data="@RefinanceOptions" TValue="string" @bind-Value="@RefinanceUserChoice" /></th>
-    </tr>
-    <tr>
-        <th>Current nominal interest rate (%)</th>
-        <th><RadzenNumeric @bind-Value="CurrentInterestRate" /></th>
-    </tr>
-    <tr>
-        <th>Current monthly repayment ($)</th>
-        <th><RadzenNumeric @bind-Value="CurrentPmt" /></th>
-    </tr>
-    <tr>
-        <th>New nominal interest rate (%)</th>
-        <th><RadzenNumeric @bind-Value="NewInterestRate" /></th>
-    </tr>
-    @{
-        if (RefinanceUserChoice.Equals("I want to pay off my loan faster"))
-        {
-            <tr>
-                <th>Time to pay off loan:</th>
-                <th>@n months | @LoanPeriodInYears years</th>
-            </tr>
-        }
-        else if (RefinanceUserChoice.Equals("I want to switch to a cheaper loan"))
-        {
-            <tr>
-                <th>Savings over duration of loan:</th>
-                <th>@Result</th>
-            </tr>
-            <tr>
-                <th>Interest paid on current loan:</th>
-                <th>@CurrentInterestPaidResult</th>
-            </tr>
-            <tr>
-                <th>Interest paid on new loan:</th>
-                <th>@NewInterestPaidResult</th>
-            </tr>
-        }
-        else
-        { }
-    }
-</table>
+<p style="text-align:center;font-size:35px;padding:10px;">See how much you can save by switching</p>
 
-<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+
+@*<div class="slidecontainer">
+    <div class="slidecontainer">
+        <input type="range" id="myRange" class="slider" min="$10,000" max="$3,000,000+" value="1000" />
+        <p>Value: <span id="demo">Text</span></p>
+    </div>
+</div>*@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">Loan Amount ($)</div>
+        <div class="col"> $ <RadzenNumeric @bind-Value="Pv" /></div><br>
+    </div>
+    <div class="row" style="margin-top:40px;">
+        <div class="col">
+            <h4>Why do you want to refinance?</h4>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active" style="background: rgb(156,156,156);">
+                    I want to pay off my loan faster<input type="radio" name="options" checked />
+                </label>
+                <label class="btn btn-secondary" style="background: rgb(156,156,156);">
+                    I want a cheaper loan<input type="radio" name="options" checked />
+                </label>
+            </div>
+        </div>
+        <div class="col">
+            <h4>Property Type</h4>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active" style="background: rgb(156,156,156);">
+                    Own Home<input type="radio" name="options" checked />
+                </label>
+                <label class="btn btn-secondary" style="background: rgb(156,156,156);">
+                    Investment Property<input type="radio" name="options" checked />
+                </label>
+            </div>
+        </div>
+        <div class="w-100"></div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="column">
+            <p class="label">Refinance choices</p>
+            <th><RadzenDropDown Data="@RefinanceOptions" TValue="string" @bind-Value="@RefinanceUserChoice" /></th>
+        </div>
+        <div class="column">
+            <p class="label">Current nominal interest rate (%)</p>
+            <th> $ <RadzenNumeric @bind-Value="CurrentInterestRate" /></th>
+        </div>
+        <div class="column">
+            <p class="label">New nominal interest rate (%)</p>
+            <th> $ <RadzenNumeric @bind-Value="NewInterestRate" /></th>
+            @{
+                if (RefinanceUserChoice.Equals("I want to pay off my loan faster"))
+                {
+                    <tr>
+                        <th>Time to pay off loan:</th>
+                        <th>@n months | @LoanPeriodInYears years</th>
+                    </tr>
+                }
+                else if (RefinanceUserChoice.Equals("I want to switch to a cheaper loan"))
+                {
+                    <tr>
+                        <th>Savings over duration of loan:</th>
+                        <th>@Result</th>
+                    </tr>
+                    <tr>
+                        <th>Interest paid on current loan:</th>
+                        <th>@CurrentInterestPaidResult</th>
+                    </tr>
+                    <tr>
+                        <th>Interest paid on new loan:</th>
+                        <th>@NewInterestPaidResult</th>
+                    </tr>
+                }
+                else
+                { }
+            }
+        </div>
+                <div class="button-row" style="margin-top:15px;display:block;">
+                    <button id="calculate" class="block" @onclick="Calculate">Calculate</button>
+                </div>
+        </div>
+</div>
+
+
+
 
 @code {
+
+    bool singleValue1 = false;
+    IEnumerable<int> values1 = new int[] { 1, 2 };
+    //EventConsole console;
+
+    void OnChange1(object value, string name)
+    {
+        var str = value is IEnumerable<int> ? string.Join(", ", (IEnumerable<int>)value) : value;
+
+    }
+
+    bool singleValue2 = false;
+    IEnumerable<int> values2 = new int[] { 1, 2 };
+    //EventConsole console;
+
+    void OnChange2(object value, string name)
+    {
+        var str = value is IEnumerable<int> ? string.Join(", ", (IEnumerable<int>)value) : value;
+
+    }
 
     private double CurrentInterestRate { get; set; }
     private double NewInterestRate { get; set; }
@@ -84,11 +155,12 @@
     private string NewInterestPaidResult { get; set; }
 
     private string RefinanceUserChoice = "";
-    private List<string> RefinanceOptions = new List<string>
-    {
+    private List<string>
+    RefinanceOptions = new List<string>
+        {
         "I want to pay off my loan faster",
         "I want to switch to a cheaper loan"
-    };
+            };
 
     private void Calculate()
     {
@@ -123,7 +195,8 @@
         if (NewPmt < CurrentPmt)
         {
             Result = Savings.ToString("C");
-        } else
+        }
+        else
         {
             Result = "Savings amount is less than zero" + " (" + Savings.ToString("C") + ")";
         }

@@ -1,50 +1,76 @@
 ﻿@page "/extrahomeloanrepayment"
 
-<h1>Extra Home Loan Repayment</h1>
-<table class="table">
-    <tr>
-        <th>Initial Principal</th>
-        <th><input @bind="Principal" /></th>
-    </tr>
-    <tr>
-        <th>Years</th>
-        <th><input @bind="NumberOfYears" /></th>
-    </tr>
-    <tr>
-        <th>Repayment Frequency</th>
-        <th><RadzenDropDown Placeholder="Monthly" Data="@RepaymentFrequencyDict.Keys" TValue="string" @bind-Value="@RepaymentFreqChoice" ValueProperty="RepaymentFreqChoice" Change="@(args => RepaymentFrequency(args))" /></th>
-    </tr>
-    <tr>
-        <th>Annual Interest Rate (%)</th>
-        <th><input @bind="InterestRate" /></th>
-    </tr>
-    <tr>
-        <th>Extra Repayment</th>
-        <th><input @bind="ExtraRepayment" /></th>
-    </tr>
-    <tr>
-        <th>Start Date</th>
-        <th><input @bind="StartYear" /></th>
-    </tr>
-    <tr>
-        <th>MinimumRepayment:</th>
-        <th>@MinimumRepayment</th>
-    </tr>
-    <tr>
-        <th>MaximumRepayment:</th>
-        <th>@MaximumRepayment</th>
-    </tr>
-    <tr>
-        <th>timeSaved:</th>
-        <th>@TimeSaved</th>
-    </tr>
-    <tr>
-        <th>InterestSaved:</th>
-        <th>@InterestSaved</th>
-    </tr>
-</table>
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: rgb(255,255,255);">Extra Home Loan Repayment</h1>
+            <p style="color: rgb(255,255,255);">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+        </div>
+        <div class="col"><img id="im1" src="https://cdn.pixabay.com/photo/2017/07/30/23/59/garlic-2556022_960_720.jpg" style="align-content:center;" /></div>
+    </div>
+</div>
 
-<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+
+<div class="container">
+    <div class="row">
+        <div class="column">
+            Initial Principal<br>
+            <input @bind="Principal" />
+        </div>
+        <div class="column">
+            Years<br>
+            <input @bind="NumberOfYears" />
+        </div>
+        <div class="column">
+            Repayment Frequency<br>
+            <RadzenDropDown Placeholder="Monthly" Data="@RepaymentFrequencyDict.Keys" TValue="string" @bind-Value="@RepaymentFreqChoice" ValueProperty="RepaymentFreqChoice" Change="@(args => RepaymentFrequency(args))" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            Annual Interest Rate (%)<br>
+            <input @bind="InterestRate" />
+        </div>
+        <div class="column">
+            Extra Repayment<br>
+            <input @bind="ExtraRepayment" />
+        </div>
+        <div class="column">
+            Start Date<br>
+            <input @bind="StartYear" />
+        </div>
+    </div>
+    <div class="button-row" style="margin-top:15px;">
+        <button id="calculate" class="block" @onclick="Calculate">Calculate</button>
+    </div>
+</div>
+
+
+
+
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);">
+    <div class="container" style="background: rgb(44,44,44);">
+        <div class="row">
+            <div class="col-sm">
+                <h2 style="color: rgb(255,255,255);">InterestSaved<br>@InterestSaved</h2>
+            </div>
+            <div class="col-sm">
+                <h2 style="color: rgb(255,255,255);">Time Saved<br>@TimeSaved</h2>
+            </div>
+            <div class="col-sm">
+                <div class="row">
+                    <h3 style="color: rgb(255,255,255);">Maximum Repayments<br>@MaximumRepayment</h3>
+                </div>
+                <div class="row">
+                    <h3 style="color: rgb(255,255,255);">Minimum Repayments<br>@MinimumRepayment</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 @code {
     private double Principal { get; set; } = 300000;
