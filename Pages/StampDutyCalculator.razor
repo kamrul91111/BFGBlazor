@@ -2,52 +2,68 @@
 
 @using BFGBlazor.Data
 
-<h1>Stamp Duty Calculator</h1>
 
-<table class="table">
-    <tr>
-        <th>Type of property</th>
-        <th><RadzenDropDown Data="@TypeOfPropertyOptions" TValue="string" @bind-Value="@TypeOfPropertyUserChoice" /></th>
-    </tr>
-    <tr>
-        <th>Are you a first home buyer</th>
-        <th><RadzenDropDown Data="@FirstHomeBuyerOptions" TValue="string" @bind-Value="@FirstHomeBuyerUserChoice" /></th>
-    </tr>
-    <tr>
-        <th>The property is located in</th>
-        <th><RadzenDropDown Data="@PropertyLocationOptions" TValue="string" @bind-Value="@PropertyLocationUserChoice" /></th>
-    </tr>
-    <tr>
-        <th>Property use</th>
-        <th><RadzenDropDown Data="@PropertyUseOptions" TValue="string" @bind-Value="@PropertyUseUserChoice" /></th>
-    </tr>
-    <tr>
-        <th>Price of the property is ($)</th>
-        <th><RadzenNumeric @bind-Value="PriceOfProperty" /></th>
-    </tr>
-    <tr>
-        <th>Your deposit ($)</th>
-        <th><RadzenNumeric @bind-Value="DepositAmount" /></th>
-    </tr>
-    <tr>
-        <th>Stamp Duty:</th>
-        <th>@StampDutyResult</th>
-    </tr>
-    <tr>
-        <th>Mortage Registration:</th>
-        <th>@MortgageRegistrationResult</th>
-    </tr>
-    <tr>
-        <th>Transfer fee:</th>
-        <th>@TransferFeeResult</th>
-    </tr>
-    <tr>
-        <th>Your total costs:</th>
-        <th>@TotalCostsResult</th>
-    </tr>
-</table>
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: rgb(255,255,255);">Stamp Duty Calculator</h1>
+            <p style="color: rgb(255,255,255);">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+        </div>
+        <div class="col"><img id="im1" src="https://cdn.pixabay.com/photo/2017/09/12/15/36/letters-2742643_960_720.jpg" style="align-content:center;" /></div>
+    </div>
+</div>
 
-<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+<div class="container">
+    <div class="row">
+        <div class="column">
+            <p class="label">Type of property</p>
+            <th><RadzenDropDown Data="@TypeOfPropertyOptions" TValue="string" @bind-Value="@TypeOfPropertyUserChoice" /></th>
+        </div>
+        <div class="column">
+            <p class="label">Are you a first home buyer</p>
+            <th><RadzenDropDown Data="@FirstHomeBuyerOptions" TValue="string" @bind-Value="@FirstHomeBuyerUserChoice" /></th>
+        </div>
+        <div class="column">
+            <p class="label">The property is located in</p>
+            <th><RadzenDropDown Data="@PropertyLocationOptions" TValue="string" @bind-Value="@PropertyLocationUserChoice" /></th>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <p class="label">Property use</p>
+            <th><RadzenDropDown Data="@PropertyUseOptions" TValue="string" @bind-Value="@PropertyUseUserChoice" /></th>
+        </div>
+        <div class="column">
+            <p class="label">Price of the property is ($)</p>
+            <th> $ <RadzenNumeric @bind-Value="PriceOfProperty" /></th>
+        </div>
+        <div class="column">
+            <p class="label">Your deposit ($)</p>
+            <th> $ <RadzenNumeric @bind-Value="DepositAmount" /></th>
+        </div>
+    </div>
+    <div class="button-row" style="margin-top:15px;">
+        <button id="calculate" class="block" @onclick="Calculate">Calculate</button>
+    </div>
+</div>
+
+
+
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);text-align:center;padding:40px;">
+    <div class="row" style="margin-top:50px;">
+        <div class="column">
+            <h2 style="color: rgb(255,255,255);text-align:center">Your total costs<br>@TotalCostsResult</h2>
+        </div>
+        <div class="column" >
+                <h3 style="color: rgb(255,255,255);">Stamp Duty<br>@StampDutyResult</h3><br>
+                <h3 style="color: rgb(255,255,255);">Mortage Registration<br>@MortgageRegistrationResult</h3><br>
+                <h3 style="color: rgb(255,255,255);">Transfer fee<br>@TransferFeeResult</h3><br>
+        </div>
+        <div class="column">
+            <button type="reset" class="btn btn-light" style="width:300px;text-align:center;">Start Over</button>
+        </div>
+    </div>
+</div>
 
 @code {
 

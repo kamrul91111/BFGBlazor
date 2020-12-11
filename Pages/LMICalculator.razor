@@ -1,33 +1,54 @@
 ﻿@page "/lmicalculator"
 
-<h1>Lenders Mortgage Insurance Calculator</h1>
 
-<table class="table">
-    <tr>
-        <th>The price of my property is ($)</th>
-        <th><RadzenNumeric @bind-Value="PropertyValue" /></th>
-    </tr>
-    <tr>
-        <th>My deposit is ($)</th>
-        <th><RadzenNumeric @bind-Value="Deposit" /></th>
-    </tr>
-    <tr>
-        <th>My property is located in</th>
-        <th><RadzenDropDown Data="@PropertyLocationOptions" TValue="string" @bind-Value="@PropertyLocationUserChoice" /></th>
-    </tr>
-    <tr>
-        <th>Your estimated LMI payment is:</th>
-        <th>@LMIResult</th>
-    </tr>
-    <tr>
-        <th>Your LVR is:</th>
-        <th>@LVRResult%</th>
-    </tr>
-</table>
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);">
+    <div class="row">
+        <div class="col">
+            <h1 style="color: rgb(255,255,255);">Lenders Mortgage Insurance Calculator</h1>
+            <p style="color: rgb(255,255,255);">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+        </div>
+        <div class="col"><img id="im1" src="https://cdn.pixabay.com/photo/2017/09/12/15/36/letters-2742643_960_720.jpg" style="align-content:center;" /></div>
+    </div>
+</div>
 
-<button class="btn btn-primary" @onclick="Calculate">Calculate</button>
-<p></p>
-<p>Disclaimer: This fee varies slightly from lender to lender. The results should be used as indication only.</p>
+
+<div class="container">
+    <div class="row">
+        <div class="column">
+            <p class="label">The price of my property is</p>
+            <th> $ <RadzenNumeric @bind-Value="PropertyValue" /></th>
+        </div>
+        <div class="column">
+            <p class="label">My deposit is</p>
+            <th> $ <RadzenNumeric @bind-Value="Deposit" /></th>
+        </div>
+        <div class="column">
+            <p class="label">The property is located in</p>
+            <th><RadzenDropDown Data="@PropertyLocationOptions" TValue="string" @bind-Value="@PropertyLocationUserChoice" /></th>
+        </div>
+    </div>
+    <div class="button-row" style="margin-top:15px;">
+        <button id="calculate" class="block" @onclick="Calculate">Calculate</button>
+    </div>
+</div>
+
+<div class="jumbotron" id="banner1" style="background: rgb(44,44,44);text-align:center;padding:40px;">
+    <div class="row" style="margin-top:50px;">
+        <div class="column">
+            <h2 style="color: rgb(255,255,255);text-align:center">Your total costs<br>@LMIResult</h2>
+        </div>
+        <div class="column">
+            <h3 style="color: rgb(255,255,255);">Your LVR is<br>@LVRResult</h3><br>
+        </div>
+        <div class="column">
+            <button type="reset" class="btn btn-light" style="width:300px;text-align:center;">Start Over</button>
+        </div>
+    </div>
+</div>
+
+
+
+<p style="text-align:center;">Disclaimer: This fee varies slightly from lender to lender. The results should be used as indication only.</p>
 
     @code {
         private double PropertyValue { get; set; }
