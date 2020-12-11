@@ -13,72 +13,6 @@
     </div>
 </div>
 
-<div class="accordion" id="accordion">
-    <div class="card z-depth-0">
-        <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                    Collapsible Group Item #1
-                </button>
-            </h5>
-        </div>
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-             data-parent="#accordionExample">
-            <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                labore sustainable.
-            </div>
-        </div>
-    </div>
-    <div class="card z-depth-0 bordered">
-        <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Collapsible Group Item #2
-                </button>
-            </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                labore sustainable.
-            </div>
-        </div>
-    </div>
-    <div class="card z-depth-0 bordered">
-        <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                        data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Collapsible Group Item #3
-                </button>
-            </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-            <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                labore sustainable.
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="container">
@@ -122,107 +56,127 @@
         </div>
         <div class="col">
             <h3 style="color: rgb(255,255,255);">After covering your upfront costs, You would have @DepositOutput savings remaining for a deposit.</h3>
+            <button type="reset" class="btn btn-light" style="width:300px;text-align:center;">Start Over</button>
         </div>
     </div>
 </div>
 
-@*gotta figure this out*@
-<!--<table class="table">
-    <tr>
-        <th>Savings left for a deposit:</th>
-        <th>@DepositOutput</th>
-    </tr>
-</table>-->
 
-<div class="row" style="margin-bottom:40px;">
-    <div class="col-xl-12">
-        <RadzenAccordion Expand=@(args => Change(args, "Accordion with single expand", "expanded"))>
-            <Items>
-                <RadzenAccordionItem Text="Government fees" class="mainh">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 823px;">Property Stamp Duty</td>
-                                    <td>@StampDutyOnPropertyOutput</td>
-                                </tr>
-                                <tr>
-                                    <td>Registration of mortgage</td>
-                                    <td>@MortgageRegistrationFeeOutput</td>
-                                </tr>
-                                <tr>
-                                    <td>Registration of discharge of mortgage</td>
-                                    <td>@MortgageDischargeFeeOutput</td>
-                                </tr>
-                                <tr>
-                                    <td>Registration of transfer</td>
-                                    <td>@TransferFeeOutput</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Conveyancing fees" class="mainh">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 823px;">Conveyancing</td>
-                                    <td><RadzenNumeric @bind-Value="Conveyancing" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Bank Fees" class="mainh">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td style="width: 823px;">Bank Settlement Fees</td>
-                                    <td>@BankSettlementFeeOutput</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 823px;">Loan establishment fee</td>
-                                    <td>@LoanEstablishmentFeeOutput</td>
-                                </tr>
-                                <tr>
-                                    <td>LMI</td>
-                                    <td>@LMIOutput</td>
-                                </tr>
-                                <tr>
-                                    <td>BFG Fees</td>
-                                    <td>$$$</td>
-                                </tr>
-                                <tr>
-                                    <td>Application fee</td>
-                                    <td><RadzenDropDown Data="@ApplicationFee" @bind-Value="@ApplicationFeeUserChoice" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Other" class="mainh">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>Moving fee:</td>
-                                    <td><RadzenNumeric @bind-Value="MovingFee" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Pest inspection:</td>
-                                    <td><RadzenNumeric @bind-Value="PestInspection" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </RadzenAccordionItem>
-            </Items>
-        </RadzenAccordion>
+
+
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Government fees
+                </button>
+            </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style="padding:40px;">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 823px;">Property Stamp Duty</td>
+                            <td>@StampDutyOnPropertyOutput</td>
+                        </tr>
+                        <tr>
+                            <td>Registration of mortgage</td>
+                            <td>@MortgageRegistrationFeeOutput</td>
+                        </tr>
+                        <tr>
+                            <td>Registration of discharge of mortgage</td>
+                            <td>@MortgageDischargeFeeOutput</td>
+                        </tr>
+                        <tr>
+                            <td>Registration of transfer</td>
+                            <td>@TransferFeeOutput</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="col-xl-6">
-        @*<EventConsole @ref=@console />*@
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Conveyancing fees
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="padding:40px;">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 823px;">Conveyancing</td>
+                            <td><RadzenNumeric @bind-Value="Conveyancing" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Bank Fees
+                </button>
+            </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample" style="padding:40px;">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td style="width: 823px;">Bank Settlement Fees</td>
+                        <td>@BankSettlementFeeOutput</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 823px;">Loan establishment fee</td>
+                        <td>@LoanEstablishmentFeeOutput</td>
+                    </tr>
+                    <tr>
+                        <td>LMI</td>
+                        <td>@LMIOutput</td>
+                    </tr>
+                    <tr>
+                        <td>BFG Fees</td>
+                        <td>$$$</td>
+                    </tr>
+                    <tr>
+                        <td>Application fee</td>
+                        <td><RadzenDropDown Data="@ApplicationFee" @bind-Value="@ApplicationFeeUserChoice" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingfour">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Other
+                </button>
+            </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample" style="padding:40px;">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Moving fee:</td>
+                        <td><RadzenNumeric @bind-Value="MovingFee" /></td>
+                    </tr>
+                    <tr>
+                        <td>Pest inspection:</td>
+                        <td><RadzenNumeric @bind-Value="PestInspection" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
