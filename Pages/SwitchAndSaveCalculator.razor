@@ -57,17 +57,17 @@
 
 <div class="container">
     <div class="row">
-        <div class="column">
+        @*<div class="column">
             <p class="label">Refinance choices</p>
             <th><RadzenDropDown Data="@RefinanceOptions" TValue="string" @bind-Value="@RefinanceUserChoice" /></th>
+        </div>*@
+        <div class="column">
+            <p class="label">Current interest rate</p>
+            <th> % <RadzenNumeric @bind-Value="CurrentInterestRate" /></th>
         </div>
         <div class="column">
-            <p class="label">Current nominal interest rate (%)</p>
-            <th> $ <RadzenNumeric @bind-Value="CurrentInterestRate" /></th>
-        </div>
-        <div class="column">
-            <p class="label">New nominal interest rate (%)</p>
-            <th> $ <RadzenNumeric @bind-Value="NewInterestRate" /></th>
+            <p class="label">New interest rate</p>
+            <th> % <RadzenNumeric @bind-Value="NewInterestRate" /></th>
             @{
                 if (RefinanceUserChoice.Equals("I want to pay off my loan faster"))
                 {
@@ -161,6 +161,7 @@
         "I want to pay off my loan faster",
         "I want to switch to a cheaper loan"
             };
+
 
     private void Calculate()
     {
